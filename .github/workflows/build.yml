@@ -53,17 +53,17 @@ jobs:
       - name: Choose any SM7150 device in pmbootstrap to build kernel
         run: |
           cp xiaomi-davinci.cfg ~/.config/pmbootstrap.cfg
-
+      
       - name: Compile kernel with envkernel
         timeout-minutes: 120  
         run: |
           cd linux
           shopt -s expand_aliases
           source ../pmbootstrap/helpers/envkernel.sh
-          ARCH=arm64 make defconfig
-          scripts/kconfig/merge_config.sh .config arch/arm64/configs/sm7150.config
-          ARCH=arm64 make -j$(nproc)
+          ARCH=arm64 make qcom_sm7150_defconfig
+          make -j$(nproc)
           pmbootstrap build --envkernel linux-postmarketos-qcom-sm7150
+
 
       - name: Create artifact directory
         run: |
