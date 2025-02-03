@@ -55,6 +55,7 @@ jobs:
           cp xiaomi-davinci.cfg ~/.config/pmbootstrap.cfg
 
       - name: Compile kernel with envkernel
+        timeout-minutes: 120  
         run: |
           cd linux
           shopt -s expand_aliases
