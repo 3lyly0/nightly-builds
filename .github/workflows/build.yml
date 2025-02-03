@@ -60,8 +60,9 @@ jobs:
           cd linux
           shopt -s expand_aliases
           source ../pmbootstrap/helpers/envkernel.sh
-          make defconfig sm7150.config
-          make -j2
+          ARCH=arm64 make defconfig
+          scripts/kconfig/merge_config.sh .config arch/arm64/configs/sm7150.config
+          ARCH=arm64 make -j$(nproc)
           pmbootstrap build --envkernel linux-postmarketos-qcom-sm7150
 
       - name: Create artifact directory
